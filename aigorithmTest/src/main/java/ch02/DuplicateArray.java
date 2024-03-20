@@ -30,5 +30,6 @@ public class DuplicateArray {
         System.out.println(copi); //20
 
         System.out.println(Arrays.toString(original));
+
     }
 }
