@@ -17,6 +17,7 @@ public class BubbleSort {
                 temp = a[i-1];
                 a[i-1] = a[i];
                 a[i] = temp;
+                System.out.println(Arrays.toString(a));
                 swap(a);
                 }
             else {
@@ -26,6 +27,5 @@ public class BubbleSort {
                 }
             }
         }return a;
-
     }
 }
