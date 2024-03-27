@@ -1,5 +1,7 @@
 package com.example.day10;
 
+import java.util.Arrays;
+
 class bird {
     public void say() {
         System.out.println("??");
