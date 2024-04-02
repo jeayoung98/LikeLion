@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const users = [
+        { name: "Alice", age: 25 },
+        { name: "Bob", age: 30 },
+        { name: "Charlie", age: 28 },
+        { name: "Dave", age: 35 },
+      ];
+      const old = [];
+      for (let user of users) {
+        if (user.age >= 30) {
+          old.push(user);
+        }
+      }
+      console.log(old);
+    </script>
+  </body>
+</html>
