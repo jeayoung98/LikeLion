@@ -8,5 +8,7 @@ public class Quiz9 {
         Arrays.sort(charArr);
         String answer = new String(charArr);
         System.out.println(answer);
+        StringBuilder sb = new StringBuilder();
+
     }
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>비동기처리</title>
+  </head>
+  <body>
+    <script>
+      function work() {
+        const start = Date.now();
+        for (let i = 0; i < 1000000000; i++) {}
+        const end = Date.now();
+        console.log(end - start + "ms");
+      }
+      work();
+      console.log("다음 작업");
+
+      function hi() {
+        console.log("Hello!");
+      }
+
+      setTimeout(hi, 1000);
+      console.log("hi함수 다음 !");
+      console.log("hi함수 다음 !");
+      console.log("hi함수 다음 !");
+      console.log("hi함수 다음 !");
+      console.log("hi함수 다음 !");
+      console.log("hi함수 다음 !");
+    </script>
+  </body>
+</html>
