@@ -1,3 +1,5 @@
+package lv0;
+
 import java.util.Arrays;
 
 public class Quiz3 { // 연속된 수의 합

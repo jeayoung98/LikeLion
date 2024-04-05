@@ -1,3 +1,5 @@
+package lv0;
+
 import java.util.Arrays;
 
 public class Quiz2 { // 분수 덧셈

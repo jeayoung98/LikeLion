@@ -1,3 +1,5 @@
+package lv0;
+
 public class Quiz5 {
     public static void main(String[] args) {
         StringBuilder sb = new StringBuilder();

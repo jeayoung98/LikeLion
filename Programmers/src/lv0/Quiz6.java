@@ -1,3 +1,5 @@
+package lv0;
+
 public class Quiz6 {
     public static void main(String[] args) {
         // 가위 2

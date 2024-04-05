@@ -1,3 +1,5 @@
+package lv0;
+
 import java.util.Arrays;
 
 public class Quiz1_1 { // 최빈값 지정하기

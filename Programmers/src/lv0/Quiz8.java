@@ -1,3 +1,5 @@
+package lv0;
+
 public class Quiz8 {
     public static void main(String[] args) {
         StringBuilder answer = new StringBuilder();
