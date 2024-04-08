@@ -132,7 +132,7 @@
       <span onclick="newElement()" class="addBtn">Add</span>
     </div>
 
-    <ul id="myUL">
+    <ul id="todoList">
       <li>Hit the gym</li>
       <li class="checked">Pay bills</li>
       <li>Meet George</li>
@@ -141,21 +141,6 @@
       <li>Organize office</li>
     </ul>
 
-    <script>
-      const addBtn = document.getElementById("naddBtn");
-      addBtn.addEventListener("click", () => {
-        const myInput = document.getElementById("myInput").value;
-        if (myInput !== "") {
-          const myUL = document.getElementById("myUL");
-          const li = document.createElement("li");
-          const text = document.createTextNode(myInput);
-          li.appendChild(text);
-          todoList.appendChild(li);
-          document.getElementById("myInput").value = "";
-        } else {
-          alert("할일을 입력하세요.");
-        }
-      });
-    </script>
+    <script></script>
   </body>
 </html>

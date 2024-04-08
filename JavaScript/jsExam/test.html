@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>todoList</title>
+    <style>
+      .completed {
+        text-decoration: line-through;
+      }
+      .todo-list-template {
+        background: white;
+        width: 512px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin: 0 auto;
+        margin-top: 4rem;
+      }
+      .title {
+        padding: 2rem;
+        font-size: 2.5rem;
+        text-align: center;
+        font-weight: 100;
+        background: #22b8cf;
+        color: white;
+      }
+      .form-wrapper {
+        padding: 1rem;
+        border-bottom: 1px solid #22b8cf;
+      }
+      .todos-wrapper {
+        min-height: 5rem;
+      }
+      .form {
+        display: flex;
+      }
+      .form input {
+        flex: 1;
+        font-size: 1.25rem;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #c5f6fa;
+      }
+      .add-button {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: 1rem;
+        background: #22b8cf;
+        border-radius: 3px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .add-button:hover {
+        background: #3bc9db;
+      }
+      #todo-item-list {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+      }
+      .todo-item {
+        padding: 1rem;
+        display: flex;
+        align-items: center; /* 세로 가운데 정렬 */
+        cursor: pointer;
+        transition: all 0.15s;
+        user-select: none;
+      }
+      .todo-item:hover {
+        background: #e3fafc;
+      }
+      /* todo-item 에 마우스가 있을때만 .remove 보이기 */
+      .todo-item:hover .remove {
+        opacity: 1;
+      }
+      /* todo-item 사이에 윗 테두리 */
+      .todo-item + .todo-item {
+        border-top: 1px solid #f1f3f5;
+      }
+      .remove {
+        margin-right: 1rem;
+        color: #e64980;
+        font-weight: 600;
+        opacity: 0;
+      }
+      .todo-text {
+        flex: 1; /* 체크, 엑스를 제외한 공간 다 채우기 */
+        word-break: break-all;
+      }
+      .checked {
+        text-decoration: line-through;
+        color: #adb5bd;
+      }
+      .check-mark {
+        font-size: 1.5rem;
+        line-height: 1rem;
+        margin-left: 1rem;
+        color: #3bc9db;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="todo-list-template">
+      <div class="title">할 일 목록</div>
+      <div class="form-wrapper">
+        <div class="form">
+          <input type="text" id="todoInput" placeholder="할 일을 입력하세요" />
+          <button class="add-button" onclick="addTodo()">추가</button>
+        </div>
+      </div>
+      <div class="todos-wrapper" id="todoList"></div>
+    </div>
+
+    <script>
+      // 초기 데이터
+      let basicDatas = [
+        { id: 1, content: "Todo 1", done: false },
+        { id: 2, content: "Todo 2", done: true },
+      ];
+
+      // 화면에 표시 // gpt형님 도움 받았습니다..
+      function displayTodo() {
+        const todoList = document.getElementById("todoList");
+        todoList.innerHTML = "";
+
+        basicDatas.forEach((todo) => {
+          const todoBox = document.createElement("div");
+          todoBox.classList.add("todo-item");
+          todoBox.innerHTML = `
+            <input type="checkbox" ${
+              todo.done ? "checked" : ""
+            } onclick="todoDone(${todo.id})">
+            <span class="todo-text ${todo.done ? "completed" : ""}">${
+            todo.content
+          }</span>
+            <button class="remove" onclick="deleteTodo(${todo.id})">X</button>
+        `;
+          todoList.appendChild(todoBox);
+        });
+      }
+
+      // 추가
+      function addTodo() {
+        const todoInput = document.getElementById("todoInput");
+        const content = todoInput.value.trim();
+
+        if (content) {
+          const newTodo = {
+            id: basicDatas.length + 1,
+            content: content,
+            done: false,
+          };
+
+          basicDatas.push(newTodo);
+          displayTodo();
+          todoInput.value = "";
+        }
+      }
+
+      // 상태 업데이트
+      function todoDone(id) {
+        const todoList = document.getElementById("todoList");
+        const todoStatus = basicDatas.findIndex((todo) => todo.id === id);
+        if (todoStatus !== -1) {
+          basicDatas[todoStatus].done = !basicDatas[todoStatus].done;
+          displayTodo();
+        }
+      }
+
+      //   // 클릭 이벤트를 추가
+      //   function todoDone2(id) {
+      //     const todoList = document.getElementById("todoList");
+      //     const todoIndex = basicDatas.findIndex((todo) => todo.id === id);
+      //     todoList.addEventListener("click", (event) => {
+      //       if (event.target.tagName === "SPAN") {
+      //         if (todoIndex !== -1) {
+      //           basicDatas[todoIndex].done = !basicDatas[todoIndex].done;
+      //           displayTodo();
+      //         }
+      //       }
+      //     });
+      //   }
+      console.log(event);
+
+      // 삭제
+      function deleteTodo(id) {
+        basicDatas = basicDatas.filter((todo) => todo.id !== id);
+        displayTodo();
+      }
+
+      // 엔터 키 입력으로 할 일 추가
+      document
+        .getElementById("todoInput")
+        .addEventListener("keypress", function (event) {
+          if (event.key === "Enter") {
+            addTodo();
+          }
+        });
+    </script>
+  </body>
+</html>
