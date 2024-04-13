@@ -4,18 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
-    private String name;
-    private List<Account> accounts;
+    private final List<Account> accounts;
 
-    public Bank(String name) {
-        this.name = name;
+    public Bank() {
         this.accounts = new ArrayList<>();
     }
 
     public void openAccount(String accountNumber, String ownerName, int initialBalance) {
         Account account = new Account(accountNumber, ownerName, initialBalance);
         accounts.add(account);
-        System.out.println("계좌가 개설되었습니다: " + accountNumber);
+
+        System.out.println("계좌가 개설되었습니다 : " + accountNumber + " || 예금주명 : " + ownerName + " || 잔액 : " + initialBalance);
     }
 
     public Account getAccount(String accountNumber) throws AccountNotFoundException {
@@ -27,7 +26,4 @@ public class Bank {
         throw new AccountNotFoundException("통장을 찾을 수 없습니다: " + accountNumber);
     }
 
-    public String getName() {
-        return name;
-    }
 }

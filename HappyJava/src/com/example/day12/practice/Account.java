@@ -1,9 +1,11 @@
 package com.example.day12.practice;
 
 public class Account {
-    private String accountNumber;
-    private String ownerName;
-    private double balance;
+    private final String accountNumber;
+    private final String ownerName;
+    private int balance;
+
+
 
     public Account(String accountNumber, String ownerName, int initialBalance) {
         this.accountNumber = accountNumber;
@@ -19,7 +21,7 @@ public class Account {
         return ownerName;
     }
 
-    public double getBalance() {
+    public int getBalance() {
         return balance;
     }
 
