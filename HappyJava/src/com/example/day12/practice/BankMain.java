@@ -19,6 +19,12 @@ public class BankMain {
             scanner.nextLine();
 
             if (num == 1) {
+                Scanner scanner1 = new Scanner(System.in);
+                System.out.println("은행원 이름을 입력해주세요");
+                String bankerName = scanner1.nextLine();
+                System.out.println("은행원 id를 입력해주세요");
+                int bankerId = scanner1.nextInt();
+                Banker banker = new Banker(bankerName, bankerId);
                 System.out.print("은행 이름을 입력해주세요: ");
                 String bankName = scanner.nextLine();
                 if (!bankCodes.containsKey(bankName)) {
@@ -31,8 +37,10 @@ public class BankMain {
                 String userName = scanner.nextLine();
                 System.out.print("초기 자금을 입력해주세요: ");
                 int initBal = scanner.nextInt();
+                System.out.println("마이너스 통장 개설 여부를 선택해주세요\n개설하시려면 1번 아니면 2번을 눌려주세요");
+                int minus = scanner.nextInt();
                 scanner.nextLine();
-                bank.openAccount(accountNum, userName, initBal);
+                bank.openAccount(accountNum, userName, initBal,bank.isMinus(minus),bankerName,bankerId);
             } else if (num == 2) {
 
                 System.out.println("1. 입금 || 2. 출금");
