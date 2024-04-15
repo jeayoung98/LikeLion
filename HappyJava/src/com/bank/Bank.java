@@ -1,4 +1,4 @@
-package com.example.day12.practice;
+package com.bank;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,13 @@ public class Bank {
 
     public void openAccount(String accountNumber, String ownerName, int initialBalance,boolean minus,String bankerName,int bankerId) {
         Account account = new Account(accountNumber, ownerName, initialBalance,minus);
-        Banker banker = new Banker(bankerName, bankerId);
+        Banker existingBanker = findBanker(bankerName, bankerId);
+        if (existingBanker == null) {
+            existingBanker = new Banker(bankerName, bankerId);
+            bankers.add(existingBanker);
+        }
+        existingBanker.increasePerformance();
         accounts.add(account);
-        bankers.add(banker);
         System.out.println("계좌가 개설되었습니다 : " + accountNumber + " || 예금주명 : " + ownerName + " || 잔액 : " + initialBalance);
     }
 
@@ -31,9 +35,25 @@ public class Bank {
         }
         throw new AccountNotFoundException("통장을 찾을 수 없습니다: " + accountNumber);
     }
+    public int getBankerPerformance(int bankerId) throws BankerNotFoundException {
+        for (Banker banker : bankers) {
+            if (banker.getId() == bankerId) {
+                return banker.getPerformance();
+            }
+        }
+        throw new BankerNotFoundException("은행원을 찾을 수 없습니다: " + bankerId);
+    }
+
+    private Banker findBanker(String name, int id) {
+        for (Banker banker : bankers) {
+            if (banker.getName().equals(name) && banker.getId() == id) {
+                return banker;
+            }
+        }
+        return null;
+    }
 
     public boolean isMinus(int num) {
         return num == 1;
     }
-
 }

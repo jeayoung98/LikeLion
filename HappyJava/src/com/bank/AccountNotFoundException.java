@@ -1,4 +1,4 @@
-package com.example.day12.practice;
+package com.bank;
 
 public class AccountNotFoundException extends Exception {
     public AccountNotFoundException(String message) {

@@ -1,4 +1,4 @@
-package com.example.day12.practice;
+package com.bank;
 
 public class Account {
     private final String accountNumber;

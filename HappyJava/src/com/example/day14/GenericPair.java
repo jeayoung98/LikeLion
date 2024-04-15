@@ -1,10 +1,7 @@
 package com.example.day14;
 
-import com.example.day02.Book;
-import com.example.day12.practice.Account;
-import com.example.day12.practice.Bank;
-
-import java.util.Arrays;
+import com.bank.Account;
+import com.bank.Bank;
 
 public class GenericPair<T1, T2> {
     private T1 first;

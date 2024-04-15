@@ -1,10 +1,10 @@
-package com.example.day12.practice;
+package com.bank;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class BankMain {
-    public static void main(String[] args) throws AccountNotFoundException {
+    public static void main(String[] args) throws AccountNotFoundException, BankerNotFoundException {
         HashMap<String, String> bankCodes = new HashMap<>();
         bankCodes.put("카카오", "3333");
         bankCodes.put("우리", "1002");
@@ -14,7 +14,7 @@ public class BankMain {
         Bank bank = new Bank();
 
         while (true) {
-            System.out.println("진행하실 번호를 선택해주세요\n1. 통장 개설 || 2. 입출금 || 3. 통장 정보 || 4. 종료");
+            System.out.println("진행하실 번호를 선택해주세요\n1. 통장 개설 || 2. 입출금 || 3. 통장 정보 || 4. 종료 || 5. 은행원 실적");
             int num = scanner.nextInt();
             scanner.nextLine();
 
@@ -40,9 +40,8 @@ public class BankMain {
                 System.out.println("마이너스 통장 개설 여부를 선택해주세요\n개설하시려면 1번 아니면 2번을 눌려주세요");
                 int minus = scanner.nextInt();
                 scanner.nextLine();
-                bank.openAccount(accountNum, userName, initBal,bank.isMinus(minus),bankerName,bankerId);
+                banker.AccountOpening(bank,accountNum, userName, initBal,bank.isMinus(minus),bankerName,bankerId);
             } else if (num == 2) {
-
                 System.out.println("1. 입금 || 2. 출금");
                 int operation = scanner.nextInt();
                 scanner.nextLine();
@@ -83,6 +82,20 @@ public class BankMain {
                 }
             } else if (num == 4) {
                 break;
+            } else if (num == 5) {
+                System.out.println("은행원 ID를 입력해주세요 : ");
+                int id = scanner.nextInt();
+                scanner.nextLine();
+
+                System.out.println("은행원 이름을 입력해주세요 : ");
+                String bankerName = scanner.nextLine();
+
+                try {
+                    int bankerPerformance = bank.getBankerPerformance(id);
+                    System.out.println("이름 : " + bankerName + "|| 실적 : " + bankerPerformance);
+                } catch (BankerNotFoundException e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
                 System.out.println("잘못된 입력입니다. 다시 시도해주세요.");
             }
