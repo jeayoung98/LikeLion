@@ -1,6 +1,7 @@
 package com.example.day14;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ListEx {
@@ -23,5 +24,11 @@ public class ListEx {
         // 요소 삭제
         fruits.remove("cherry");
         System.out.println("업데이트된 과일 리스트 : " + fruits);
+
+        List<String> linkedList = new LinkedList<>();
+        linkedList.add("a");
+        linkedList.add("b");
+
+        linkedList.remove("a");
     }
 }

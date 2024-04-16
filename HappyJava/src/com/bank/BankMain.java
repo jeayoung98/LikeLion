@@ -92,7 +92,8 @@ public class BankMain {
 
                 try {
                     int bankerPerformance = bank.getBankerPerformance(id);
-                    System.out.println("이름 : " + bankerName + "|| 실적 : " + bankerPerformance);
+                    int bankerBonus = bankerPerformance * 10000;
+                    System.out.println("이름 : " + bankerName + "|| 실적 : " + bankerPerformance + " || 성과금 : " + bankerBonus);
                 } catch (BankerNotFoundException e) {
                     System.out.println(e.getMessage());
                 }

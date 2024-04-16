@@ -52,6 +52,12 @@ public class Bank {
         }
         return null;
     }
+//    public int performanceBonus(int bankerId) {
+//
+//        return getBankerPerformance(bankerId)*1000;
+//    }
+
+
 
     public boolean isMinus(int num) {
         return num == 1;
