@@ -27,5 +27,6 @@ public class Practice12 {
             }
         }Arrays.sort(array3);
         System.out.println(Arrays.toString(Arrays.copyOfRange(array3,count,array3.length-1)));
+
     }
 }

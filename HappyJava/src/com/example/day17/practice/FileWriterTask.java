@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class FileWriterTask implements Runnable {
-    // 입력받은 데이터를 팡일에 쓰는 작업
+    // 입력받은 데이터를 파일에 쓰는 작업
     @Override
     public void run() {
         try (FileWriter writer = new FileWriter("output.txt",true)) {
