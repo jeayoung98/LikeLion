@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class RamdaEx2 {
+public class LambdaEx2 {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 3, 2, 5, 6);
 

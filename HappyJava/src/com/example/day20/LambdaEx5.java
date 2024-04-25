@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class RamdaEx5 {
+public class LambdaEx5 {
     public static void main(String[] args) {
         List<String> names = Arrays.asList("Alice", "Bob", "charlie");
 

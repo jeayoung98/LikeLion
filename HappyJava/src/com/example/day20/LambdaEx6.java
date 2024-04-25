@@ -2,7 +2,7 @@ package com.example.day20;
 
 import java.util.function.*;
 
-public class RamdaEx6 {
+public class LambdaEx6 {
     public static void main(String[] args) {
 
         // Predicate
@@ -41,7 +41,7 @@ public class RamdaEx6 {
         BiFunction<Integer, Integer, Integer> add = (a, b) -> a + b;
         System.out.println(add.apply(1, 2));
 
-        // Consumer의 andThen 메소드 활용
+        // Consumer 의 andThen 메소드 활용
 
         Consumer<String> conA = s -> System.out.println(s + "aaaa");
         Consumer<String> conB = s -> System.out.println(s + "bbbb");

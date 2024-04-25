@@ -8,7 +8,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-public class RamdaEx8 {
+public class LambdaEx8 {
     public static void main(String[] args) {
         // 메서드 참조 ::
         // 1. 정적 메서드 참조

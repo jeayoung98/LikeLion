@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class RamdaEx4 {
+public class LambdaEx4 {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(5, 2, 3, 1, 4);
 

@@ -1,6 +1,6 @@
 package com.example.day20;
 
-public class RamdaEx3 {
+public class LambdaEx3 {
     public static void main(String[] args) {
         // 람다식을 이용하여 스레드 생성 및 실행
         new Thread(new Runnable() {
