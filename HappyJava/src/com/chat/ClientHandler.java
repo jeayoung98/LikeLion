@@ -37,6 +37,7 @@ public class ClientHandler extends Thread {
         try {
             clientsName = in.readLine(); // 클라이언트로부터 닉네임을 받음
             if (server.addClient(clientsName, this)) { // 닉네임을 서버에 추가하고 중복 검사
+                out.println("OK");
                 handleClient(); // 닉네임이 유효하면 클라이언트 처리 시작
             } else {
                 closeConnection(); // 중복 닉네임인 경우 연결 종료
