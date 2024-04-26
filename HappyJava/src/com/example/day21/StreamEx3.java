@@ -14,7 +14,7 @@ public class StreamEx3 {
         //짝수만 3곱하기
         int[] intArr = {3,6,3,76,4,2};
         Arrays.stream(intArr).map(num -> num*3).forEach(System.out::println);
-        System.out.println("==========");
+        System.out.println("==========") ;
         Arrays.stream(intArr).filter(num->num%2==0).map(num->num*3).sequential().forEach(System.out::println);
     }
 }

@@ -21,8 +21,16 @@ public class StreamEx4 {
                         data -> {
                             String[] strArr = data.split(",");
                             int[] intArr = new int[strArr.length];
-
+                            for (int i = 0; i < strArr.length; i++) {
+                                intArr[i] = Integer.parseInt(strArr[i].trim());
+                            }
+                            return Arrays.stream(intArr);
                         }
                 )
+                .forEach(System.out::print);
+        System.out.println("\n=================================");
+        list2.stream().flatMapToInt(data -> Arrays.stream(data.split(","))
+                .mapToInt(str -> Integer.parseInt(str.trim())))
+                .forEach(System.out::println);
     }
 }
