@@ -41,7 +41,6 @@ public class ChatServer {
         if (!clients.containsKey(nickname)) {
             clients.put(nickname, handler);
             System.out.println(nickname + " 사용자가 연결되었습니다.");
-            broadcast("로비: " + nickname + " 사용자가 연결되었습니다.");
             return true;
         } else {
             handler.sendMessage("닉네임이 이미 사용 중입니다. 다른 닉네임을 선택해주세요.");

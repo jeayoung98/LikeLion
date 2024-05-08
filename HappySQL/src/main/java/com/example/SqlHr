@@ -1,0 +1,54 @@
+use hr;
+show tables;
+
+select * from employees; # 전체 Data Select
+
+# Row 의  전체 column 을 보고싶지 않은 경우
+select first_name, last_name from employees;
+
+# 컬럼에 대한 ALIAS (별칭) 부여
+select first_name 이름, hire_date 입사일 from employees;
+
+# 컬럼의 합성(concatenation)
+select concat (first_name,'',last_name) 이름, hire_date 입사일 from employees;
+
+# 중복행의 제거 (DISTINCT)
+select manager_id from employees;
+select distinct employees.manager_id from employees;
+
+# 결과를 정렬
+# order by 컬럼, 컬럼
+select employees.first_name, employees.last_name,employees.hire_date from employees order by hire_date asc;
+select employees.first_name, employees.last_name,employees.hire_date from employees order by hire_date desc;
+
+# where
+select * from employees where last_name = 'king';
+select * from employees where employee_id = 102;
+
+# null
+select * from employees;
+
+# 문자형 함수
+select substr('happy day',3,2);
+
+desc employees;
+desc departments;
+# 모든 사원의 사번, first_name, email, department_name,city 정보를 조회하고 싶음
+select employee_id, e.first_name, d.department_name, l.city, c.country_name, r.region_name
+from employees e,
+     departments d,
+     locations l,
+     countries c,
+     regions r
+where e.department_id = d.department_id
+  and d.location_id = l.location_id
+  and l.country_id = c.country_id
+  and r.region_id = c.region_id;
+
+select e.employee_id, e.first_name,e.email,d.department_name,l.city,c.country_name,r.region_name
+from employees e join departments d
+using(department_id)
+join locations l on(d.department_id = l.location_id)
+join countries c using(country_id)
+join regions r using(region_id);
+

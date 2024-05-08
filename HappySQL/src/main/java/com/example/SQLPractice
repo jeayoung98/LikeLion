@@ -1,0 +1,156 @@
+# 사원 이름과 부서이름
+select ename, dname from emp,dept;
+select ename,dname from emp e, dept d;
+select ename,dname, d.deptno from emp e, dept d;
+
+select e.ename, d.dname from emp e , dept d where e.deptno = d.deptno;
+# 사원 이름 , 부서명, 급여 조회, 단, 급여가 2500 이상이고 , 부서가 research 만
+select e.ename, d.dname, e.sal
+from emp e,
+     dept d
+where e.deptno = d.deptno
+  and sal >= 2500
+  and d.dname = 'research';
+
+# 이름, 급여, 등급을 조회하세요 -- 세타 조인
+select e.ename, e.sal, g.grade
+from emp e ,SALGRADE g
+where e.sal between g.LOSAL and g.HISAL;
+
+desc emp;
+desc dept;
+
+select e.ename, d.dname
+from emp e natural join dept d; -- 두 테이블에 같은 이름의 컬럼들을 모두 조인조건으로 사용
+
+select e.ename, d.dname
+from emp e
+         left outer join dept d using (deptno);
+
+select ename,dname,mgr
+from emp,dept where emp.deptno = dept.deptno;
+select e.ename, d.dname
+from emp e join dept d using(deptno);
+
+select * from emp;
+select e.ename 사원명, m.ename 매니저이름
+from emp e,
+     emp m
+where e.mgr = m.empno;
+
+
+-- 상사가 없는 사원도 출력
+select e.ename 사원명, m.ename 매니저이름
+from emp e
+         left outer join emp m on (e.mgr = m.empno);
+
+# smith 가 속한 부서의 급여 평균
+# 1. 스미스의 부서번호 ?
+# 2. 급여 평균 ?
+# 3. 쿼리 한번에 원하는 결과를 얻어내지 못할때
+select deptno from emp where ename = 'smith';
+select avg(sal) from emp
+where deptno = (select deptno from emp where ename = 'smith');
+
+# scott 급여보다 높은 급여를 받는 사람의 이름을 출력
+select emp.ename from emp
+where sal > (select sal from emp where ename = 'scott'); -- 싱글 row 서브 쿼리
+
+# emp 테이블에서 이름으로 정렬했을때 첫번째로 나오는 이름, 급여, 부서 출력
+select ename,sal,deptno
+from emp
+order by ename limit 1;
+
+select min(ename) from emp;
+
+select ename,sal
+from emp
+where sal < (select avg(sal) from emp);
+
+select ename from emp
+where ename in('clark','allen');
+-- in (or 결합)
+
+select *
+from emp
+where ename = 'clark' or ename = 'adams' or ename = 'allen';
+
+select * from emp
+where sal > any (select avg(sal) from emp group by deptno);
+
+select avg(sal) from emp group by deptno;
+
+select *from emp
+where sal > 6000 or sal > 2916 or sal > 1566;
+
+-- all (and 결합)
+select * from emp
+where sal > all(select avg(sal) from emp group by deptno);
+
+select * from emp
+where sal > 6000 and sal > 2916 and sal > 2175 and sal > 1566;
+
+-- =any ( = or) = in 하고 같다.
+
+
+select * from emp e
+where sal > (select avg(sal) from emp where deptno = e.deptno);
+
+-- 부서 별로 최고 급여를 받는 사원의 정보를 출력
+select max(sal) from emp group by deptno;
+
+select * from emp
+where (deptno,sal) in (select deptno,max(sal) from emp group by deptno);
+
+select deptno, max(sal) from emp group by deptno;
+
+select e.deptno, e.empno,e.ename, e.sal
+from emp e, (select s.deptno,max(s.sal) msal from emp s group by s.deptno) m
+where e.deptno = m.deptno and e.sal = m.msal;
+
+select e.deptno,e.empno,e.ename,e.sal
+from emp e
+where e.sal = (select max(sal) from emp where deptno =  e.deptno);
+
+
+create table a(
+                  name int
+);
+
+show tables;
+create table b(
+                  name int
+);
+
+insert into a (name) value ('1');
+
+insert into a value ('3');
+
+select * from a;
+
+insert into b values ('4');
+
+select * from b;
+
+select * from a
+union
+select * from b;
+
+select * from a
+union all
+select * from b;
+
+-- intersect 가 지원되지 않아서..  이렇게 사용하면됨.
+select a.name from a,b
+where a.name = b.name;
+
+-- minus
+select a.name from a
+where a.name not in (select name from b);
+
+drop table a;
+show tables ;
+
+select sal, emp.ename, rank() over (order by sal desc)
+from emp
+

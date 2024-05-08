@@ -1,0 +1,123 @@
+show tables;
+show databases;
+use jeayoung;
+show tables ;
+desc dept;
+
+## 중복값 제거
+select distinct mgr,empno from emp;
+select distinct deptno, mgr from emp;
+
+## Alias 지정
+select empno 사번, ename 사원이름 from emp;
+select empno as 사번, ename "사원 이름" from emp;
+
+select  concat('test','hello',empno) from emp;
+select  concat(ename,'사원의 매니저는',mgr,'입니다',empno) from emp;
+
+## 결과를 정렬
+# order by 컬럼, 컬럼
+select ename,sal,mgr from emp order by sal desc, mgr,ename asc ;
+
+# 정렬할때 컬럼명 대신 번호로 가능
+select ename,sal,mgr from emp order by 2 desc, 3 , 1 asc;
+
+# 조건에 따라서 원하는 값만 조회 where
+select * from emp where ename = 'king';
+select * from emp where sal > 2000;
+
+# and , or
+select * from emp where job ='manager' and sal >2000;
+select * from emp where job ='manager' or sal >2000;
+
+# null 다루기
+select * from emp where mgr is null;
+select * from emp where mgr is not null;
+
+# 연산자 =, !=, <, >, <=, >=
+select * from emp where deptno != 20;
+
+# 비교 연산자 IN, ANY, ALL
+select * from emp where deptno = 10 or deptno = 20;
+select * from emp where deptno in (10,20);
+
+# 일반적으로 DB 안에 값은 대소문자를 구분함. Mysql 은 구분 안함 // 정확히 일치할때만
+select * from emp where job = 'manager';
+select * from emp where job = 'manag'; -- 이러면 안됨
+
+# like 와일드 카드를 이용해서 검색 (와일드 카드 -> _, %)(_ 문자하나, % 문자 0 ~ 여러개)
+select * from emp where job like '_anager';
+select * from emp where job like '%';
+select * from emp where ename like '__rd';
+select * from emp where ename like 's%';
+
+# 이름이 3번째 글자가 A인 사원 조회
+select * from emp where ename like'__A%';
+select * from emp where hiredate like'__81%';
+
+# 문자형 함수
+select upper('SEoul'); -- select upper('SEoul') from dual; -- 오라클의 경우
+select upper(ename) from emp;
+select * from emp where upper(ename) = 'SMITH';
+select substr('happy day',3,2); -- index 가 1부터 시작 !!
+select * from emp where substr(hiredate,3,2) = '81';;
+select trim('     test          ');
+select rtrim('    test          ');
+select ltrim('    test          ');
+select lpad('hi', 5, '*'), rpad('hi', 5, '#');
+select lpad(emp.ename,10,'*') from emp;
+
+# 숫자형 함수
+select abs(2), abs(-2); -- 절댓값
+select mod(35,10),35 % 10 나눈나머지;
+select floor(1.23), ceiling(1.23);
+select round(1.254,1),round(1.254,2);
+select pow(2,2), sign(-32),sign(32),sign(0);
+select greatest(4,6,4,634,55), least(5,7,32,26,214);
+
+# 날짜형 함수
+select current_date,curdate();
+select current_time,current_timestamp;
+SELECT now(),sysdate(),current_timestamp;
+select date_format(curdate(),'%w %M %y');
+select date_format(curdate(),'%Y. %m. %d');
+SET time_zone = 'Asia/Seoul';
+select current_timestamp;
+
+# 행변환 함수
+select now();
+select cast(now() as date);
+select cast('123' as signed);
+select cast(123 as char);
+select cast(now() as char);
+
+# 함수 단일행 함수, 그룹함수
+select upper(emp.ename) from emp; -- 단일행 함수
+select sum(sal) from emp; -- 그룹 함수
+
+# select ename, sum(sal) from emp; -- 그룹함수와 함께 그룹핑이 참여하지 않은 털럼이 같이 나올 수 없다.
+-- 부서번호별(그루핑) 급여총합을 구함
+select deptno, sum(sal) from emp group by deptno;
+select count(ename) from emp; -- ename 은 null 이 없으므로 14
+select count(comm) from emp; -- 해당 컬럼이 null 값이 아닌 레코드만 개수한다.
+select count(*) from emp; -- 전체 사원수를 잘 셀수 있다.
+# 부서별 사원수
+
+select deptno 부서,count(*) as 사원수 from emp group by deptno;
+
+# 부서별 최대 급여
+select deptno 부서, max(sal) 최대급여 from emp group by deptno;
+select deptno 부서, avg(sal) 평균급여 from emp group by deptno;
+
+# 그룹별로 값을 구할때 조건주기
+-- 그룹별 평균급여 2000인곳 제외하고 조회
+select deptno, avg(sal) from emp group by deptno having avg(sal) > 2000;
+
+-- 급여가 4500 이상 1000 이하 사원은 제외하고,
+-- 부서별 평균급여를 구해주세요. 단 평균급여가 2000이하인 부서는 제외
+select emp.deptno, avg(emp.sal)
+from emp
+where sal < 4500
+  and sal > 1000
+group by deptno
+having avg(sal) > 2000;

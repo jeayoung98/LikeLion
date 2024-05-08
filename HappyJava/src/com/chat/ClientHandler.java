@@ -16,10 +16,6 @@ public class ClientHandler extends Thread {
         return clientsName;
     }
 
-    public BufferedReader getIn() {
-        return in;
-    }
-
 
     public ClientHandler(Socket socket, ChatServer server) {
         this.socket = socket;
@@ -38,6 +34,9 @@ public class ClientHandler extends Thread {
             clientsName = in.readLine(); // 클라이언트로부터 닉네임을 받음
             if (server.addClient(clientsName, this)) { // 닉네임을 서버에 추가하고 중복 검사
                 out.println("OK");
+                ChatServer chatServer = this.server;
+                server.broadcast("로비: " + clientsName + " 사용자가 연결되었습니다.");
+                out.println("명령어 모음 : /help");
                 handleClient(); // 닉네임이 유효하면 클라이언트 처리 시작
             } else {
                 closeConnection(); // 중복 닉네임인 경우 연결 종료
@@ -110,6 +109,9 @@ public class ClientHandler extends Thread {
                 // 비밀번호를 입력하지 않은 경우 빈 문자열로 처리
                 String password = parts.length > 1 ? parts[1] : "";
                 server.createRoom(this, password);
+                break;
+            case "/help":
+                out.println("/r : 귓속말\n/join : 채팅방 입장\n/create : 채팅방 생성\n/exit : 채팅방 퇴장");
                 break;
             default:
                 sendMessage("알 수 없는 명령어: " + parts[0]);

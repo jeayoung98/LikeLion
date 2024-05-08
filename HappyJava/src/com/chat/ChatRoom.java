@@ -10,12 +10,6 @@ public class ChatRoom {
     private Set<ClientHandler> participants = new HashSet<>();
     private File chatLog;
 
-
-
-    public Set<ClientHandler> getParticipants() {
-        return participants;
-    }
-
     public ChatRoom(int roomId,String password) {
         this.roomId = roomId;
         this.password = password;
