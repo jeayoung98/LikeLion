@@ -2,13 +2,24 @@ package org.example.iocex.service;
 
 import org.example.iocex.dao.UserDao;
 import org.example.iocex.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
+//    @Autowired
+    private UserDao userDao; // 필드 기반 주입 (지양하는 방식)
 
-    public UserServiceImpl(UserDao userDao) {
+
+//    public UserServiceImpl(UserDao userDao) {
+//        this.userDao = userDao;
+//    }
+//
+    @Autowired // ComponentScan 은 기본으로 생성자를 통해 주입하므로, 설정자를 통해 주입받고 싶다면 @AutoWired 를 붙힌다
+    @Qualifier("userDaoImpl")
+    public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
     }
 
