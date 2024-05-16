@@ -20,20 +20,20 @@ public class MainApplication {
         SpringApplication.run(MainApplication.class, args);
     }
 
-//    @Bean
-//    public CommandLineRunner commandLineRunner(UserRepository userRepository) {
-//        return args -> {
-////            userRepository.save(new User("jung123", "jung123@exam.com"));
-//
-////            User user = userRepository.findById(19L).get();
-////            System.out.println(user.getName());
-////            System.out.println(userRepository.findByName("jung"));
-//
-//            PageRequest pageRequest = PageRequest.of(0, 3);
-//            Page<User> allUser = userRepository.findAllUsersWithPagination(pageRequest);
-//
-//        };
-//    }
+    @Bean
+    public CommandLineRunner commandLineRunner(UserRepository userRepository) {
+        return args -> {
+            userRepository.save(new User("jung123876", "jung123987@exam.com"));
+
+            User user = userRepository.findById(19L).get();
+            System.out.println(user.getName());
+            System.out.println(userRepository.findByName("jung"));
+
+            PageRequest pageRequest = PageRequest.of(0, 3);
+            Page<User> allUser = userRepository.findAllUsersWithPagination(pageRequest);
+
+        };
+    }
 
     @Bean
     public CommandLineRunner batchUpdateDemo(JdbcTemplate jdbcTemplate) {

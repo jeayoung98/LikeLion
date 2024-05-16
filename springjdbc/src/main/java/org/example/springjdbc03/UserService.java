@@ -23,6 +23,5 @@ public class UserService {
             jdbcTemplate.update("UPDATE users SET email = ? WHERE name = ?", "updated.email@example.com", name);
             return null;
         });
-
     }
 }
