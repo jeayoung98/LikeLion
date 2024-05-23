@@ -5,14 +5,21 @@ import org.example.springmvc.domain.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class ExController {
+    @GetMapping("/guest/{name}")
+    public String guest(@PathVariable String name) {
+        System.out.println(name);
+        return "redirect:/visits";
+    }
     @GetMapping("/products")
     public String products(Model model) {
+
         model.addAttribute("hi", "상품리스트");
         List<Product> products = Arrays.asList(
                 new Product(1, "Apple", 1.20),
