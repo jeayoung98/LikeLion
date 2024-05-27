@@ -1,73 +1,41 @@
 package com.example;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.IOException;
+
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int num = Integer.parseInt(br.readLine());
         Stack<Integer> stack = new Stack<>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int num = Integer.parseInt(reader.readLine());
+
+        String[] inputNumbers = reader.readLine().split(" ");
+        Map<Integer, Integer> map = new HashMap<>();
 
         for (int i = 0; i < num; i++) {
-            String str = br.readLine();
-            String[] parts = str.split(" ");
+            int k = Integer.parseInt(inputNumbers[i]);
+            map.put(k, i + 1);
 
-            switch (parts[0]) {
-                case "push":
-                    push(stack, Integer.parseInt(parts[1]));
-                    break;
-                case "top":
-                    top(stack, bw);
-                    break;
-                case "size":
-                    size(stack, bw);
-                    break;
-                case "empty":
-                    empty(stack, bw);
-                    break;
-                case "pop":
-                    pop(stack, bw);
-                    break;
+            while (!stack.empty() && stack.peek() < k) {
+                stack.pop();
             }
+            if (stack.empty()) {
+                writer.write("0 ");
+            } else {
+                if (i == num - 1) {
+                    writer.write(map.get(stack.peek())+"");
+                }else writer.write(map.get(stack.peek()) + " ");
+            }
+            stack.push(k);
         }
-        bw.flush();
-    }
 
-    public static void push(Stack<Integer> stack, int value) {
-        stack.push(value);
-    }
-
-    public static void top(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        if (!stack.isEmpty()) {
-            bw.write(stack.peek() + "\n");
-        } else {
-            bw.write("-1\n");
-        }
-    }
-
-    public static void size(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        bw.write(stack.size() + "\n");
-    }
-
-    public static void empty(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        if (stack.isEmpty()) {
-            bw.write("1\n");
-        } else {
-            bw.write("0\n");
-        }
-    }
-
-    public static void pop(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        if (!stack.isEmpty()) {
-            bw.write(stack.pop() + "\n");
-        } else {
-            bw.write("-1\n");
-        }
+        writer.flush();
+        writer.close();
+        reader.close();
     }
 }
