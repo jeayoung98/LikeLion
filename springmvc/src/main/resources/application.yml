@@ -7,3 +7,6 @@ spring:
     cache-duration: 0
 server:
   port: 8888
+  error:
+    whitelabel:
+      enabled: false
