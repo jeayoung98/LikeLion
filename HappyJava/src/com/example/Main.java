@@ -1,41 +1,42 @@
 package com.example;
 
-
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        Stack<Integer> stack = new Stack<>();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
+        String[] input = br.readLine().split(" ");
+        int[] a = new int[n];
 
-        int num = Integer.parseInt(reader.readLine());
-
-        String[] inputNumbers = reader.readLine().split(" ");
-        Map<Integer, Integer> map = new HashMap<>();
-
-        for (int i = 0; i < num; i++) {
-            int k = Integer.parseInt(inputNumbers[i]);
-            map.put(k, i + 1);
-
-            while (!stack.empty() && stack.peek() < k) {
-                stack.pop();
-            }
-            if (stack.empty()) {
-                writer.write("0 ");
-            } else {
-                if (i == num - 1) {
-                    writer.write(map.get(stack.peek())+"");
-                }else writer.write(map.get(stack.peek()) + " ");
-            }
-            stack.push(k);
+        for (int i = 0; i < n; i++) {
+            a[i] = Integer.parseInt(input[i]);
         }
 
-        writer.flush();
-        writer.close();
-        reader.close();
+        int[] result = new int[n];
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && stack.peek() <= a[i]) {
+                stack.pop();
+            }
+
+            if (stack.isEmpty()) {
+                result[i] = -1;
+            } else {
+                result[i] = stack.peek();
+            }
+            stack.push(a[i]);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < n; i++) {
+            sb.append(result[i]).append(' ');
+        }
+
+        System.out.println(sb);
     }
 }
