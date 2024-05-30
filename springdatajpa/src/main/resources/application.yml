@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: SpringDataJPA
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/jeayoung
+    username: jeayoung98
+    password: wjdwodud98@
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
