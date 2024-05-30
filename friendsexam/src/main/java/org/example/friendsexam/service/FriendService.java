@@ -19,7 +19,6 @@ public class FriendService {
     // 친구 등록
     @Transactional // save 하는것들은 붙여주기
     public Friend saveFriend(Friend friend) {
-        return friendRepository.save(friend);
     }
 
     // id에 해당하는 친구 정보 조회

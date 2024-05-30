@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Friend List</title>
-    <link rel="stylesheet" th:href="@{/css/friend.css}"/>
 </head>
 <body>
 <h1>Friend List</h1>
 <table th:if="${!friends.empty}">
     <thead>
     <tr>
-        <th>Id</th>
         <th>Name</th>
         <th>Email</th>
     </tr>
@@ -21,7 +18,6 @@
         <td>
             <a th:href="@{/friends/{id} (id=${friend.id})}"  th:text="${friend.name}"></a>
         </td>
-        <td th:text="${friend.name}"></td>
         <td th:text="${friend.email}"></td>
     </tr>
     </tbody>

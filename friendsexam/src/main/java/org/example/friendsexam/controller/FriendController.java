@@ -3,6 +3,8 @@ package org.example.friendsexam.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.friendsexam.domain.Friend;
 import org.example.friendsexam.service.FriendService;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +16,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class FriendController {
     private final FriendService friendService;
 
+//    @GetMapping
+//    public String friends(Model model) {
+//        Iterable<Friend> friends = friendService.findAllFriends();
+//        model.addAttribute("friends", friends);
+//        return "friends/list";
+//    }
+
     @GetMapping
-    public String friends(Model model) {
-        Iterable<Friend> friends = friendService.findAllFriends();
+    public String friends(Model model, @RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Iterable<Friend> friends = friendService.findAllFriends(pageable);
         model.addAttribute("friends", friends);
+        model.addAttribute("currentPage",page);
         return "friends/list";
     }
     // 친구등록 -- url 몇개 ? -- addForm add
@@ -60,7 +71,7 @@ public class FriendController {
         return "friends/edit";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("/edit")
     public String editFriend(@ModelAttribute Friend friend){
         friendService.saveFriend(friend);
         return "redirect:/friends";

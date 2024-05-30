@@ -1,73 +1,34 @@
 package com.example;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.io.IOException;
-import java.util.Stack;
+import java.io.InputStreamReader;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        int num = Integer.parseInt(br.readLine());
-        Stack<Integer> stack = new Stack<>();
 
+        // 입력 받을 정수
+        int num = Integer.parseInt(br.readLine().trim());
+
+        // num 개의 문자열 입력받기
         for (int i = 0; i < num; i++) {
-            String str = br.readLine();
-            String[] parts = str.split(" ");
-
-            switch (parts[0]) {
-                case "push":
-                    push(stack, Integer.parseInt(parts[1]));
-                    break;
-                case "top":
-                    top(stack, bw);
-                    break;
-                case "size":
-                    size(stack, bw);
-                    break;
-                case "empty":
-                    empty(stack, bw);
-                    break;
-                case "pop":
-                    pop(stack, bw);
-                    break;
+            String str = br.readLine(); // 문자열 입력받기
+            if (isVps(str)) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
             }
         }
-        bw.flush();
     }
 
-    public static void push(Stack<Integer> stack, int value) {
-        stack.push(value);
-    }
-
-    public static void top(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        if (!stack.isEmpty()) {
-            bw.write(stack.peek() + "\n");
-        } else {
-            bw.write("-1\n");
+    public static boolean isVps(String str) {
+        while (true) {
+            str = str.replace("()", ""); // "()"를 빈 문자열로 대체
+            if (!str.contains("()")) {
+                break; // 더 이상 "()"가 없으면 반복 종료
+            }
         }
-    }
-
-    public static void size(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        bw.write(stack.size() + "\n");
-    }
-
-    public static void empty(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        if (stack.isEmpty()) {
-            bw.write("1\n");
-        } else {
-            bw.write("0\n");
-        }
-    }
-
-    public static void pop(Stack<Integer> stack, BufferedWriter bw) throws IOException {
-        if (!stack.isEmpty()) {
-            bw.write(stack.pop() + "\n");
-        } else {
-            bw.write("-1\n");
-        }
+        return str.isEmpty(); // 문자열이 비어있으면 VPS, 아니면 VPS 아님
     }
 }
