@@ -3,9 +3,9 @@ spring:
     name: SpringDataJPA
 
   datasource:
-    url: jdbc:mysql://localhost:3306/jeayoung
-    username: jeayoung98
-    password: wjdwodud98@
+    url: jdbc:mysql://localhost:3306/hr
+    username: root
+    password: wjdwodud98
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
