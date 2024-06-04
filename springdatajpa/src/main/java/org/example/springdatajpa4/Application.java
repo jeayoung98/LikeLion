@@ -23,9 +23,8 @@ public class Application {
         return (args -> {
             log.info("Employees with last name 'Doe':");
             repository.findByLastName("Doe").forEach(employee -> log.info(employee.toString()));
-
             log.info("Employees with salary greater than or equal to 55000:");
-            repository.findBySalaryGreaterThanEqual(55000.0).forEach(employee -> log.info(employee.toString()));
+            repository.findBySalaryGreaterThanEqual(55000.0).forEach(employee -> System.out.println((employee.toString())));
 
             log.info("Employee with employee ID 1:");
             repository.findById(1).ifPresent(employee -> log.info(employee.toString()));
