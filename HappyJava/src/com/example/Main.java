@@ -1,34 +1,15 @@
 package com.example;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    public static void main(String[] args) {
+        int[] b = new int[] {1,2};
 
-        // 입력 받을 정수
-        int num = Integer.parseInt(br.readLine().trim());
+        System.out.println(Arrays.stream(b).min().orElse(0));
+        Integer[] a = new Integer[]{1, 2};
 
-        // num 개의 문자열 입력받기
-        for (int i = 0; i < num; i++) {
-            String str = br.readLine(); // 문자열 입력받기
-            if (isVps(str)) {
-                System.out.println("YES");
-            } else {
-                System.out.println("NO");
-            }
-        }
-    }
-
-    public static boolean isVps(String str) {
-        while (true) {
-            str = str.replace("()", ""); // "()"를 빈 문자열로 대체
-            if (!str.contains("()")) {
-                break; // 더 이상 "()"가 없으면 반복 종료
-            }
-        }
-        return str.isEmpty(); // 문자열이 비어있으면 VPS, 아니면 VPS 아님
+        System.out.println(Arrays.asList(a).indexOf(2));
     }
 }
