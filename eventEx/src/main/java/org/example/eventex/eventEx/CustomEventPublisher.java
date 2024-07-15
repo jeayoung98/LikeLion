@@ -17,6 +17,7 @@ public class CustomEventPublisher {
         System.out.println("댓글 등록");
         // 댓글 등록하는 일을 하고
 
+        // 이벤트 발생
         CustomEvent event = new CustomEvent(this,message);
         applicationEventPublisher.publishEvent(event);
     }
